@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>"RFP" Shared Documents — Requirements Overview</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1c2b22;
+      --green: #2f5c3a;
+      --green-accent: #6f9b5f;
+      --muted: #8a9089;
+      --line: #e4e4de;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Header */
+    header {
+      padding: 36px 0 28px;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 16px; }
+    .logo {
+      width: 52px; height: 52px;
+      background: var(--green);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .brand-text .name { font-weight: 700; font-size: 17px; color: var(--ink); }
+    .brand-text .sub { font-size: 14px; color: var(--muted); }
+    .access {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-accent); }
+    .divider { height: 1px; background: var(--line); margin-top: 28px; }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      padding: 96px 0 110px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 28px 0 36px;
+    }
+    .hero h1 .accent { color: var(--green-accent); }
+    .hero p {
+      font-size: 18px;
+      color: #55605a;
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 20px 30px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .btn:hover { background: #244b2f; transform: translateY(-1px); }
+    .btn .arrow { margin-left: 6px; }
+    .note { font-size: 13px; color: var(--muted); margin-top: 16px; }
+
+    /* Hero visual */
+    .visual {
+      position: relative;
+      background: linear-gradient(160deg, #eef1ea, #e6ebe2);
+      border-radius: 16px;
+      min-height: 480px;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid #e0e5db;
+    }
+    .visual .corner-label {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+      display: flex; justify-content: space-between;
+    }
+    .doc {
+      position: absolute;
+      left: 50%; top: 80px;
+      width: 62%; max-width: 300px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px 22px;
+      box-shadow: 0 30px 60px -30px rgba(31,43,34,0.35);
+      transform: translateX(-55%) rotate(-3deg);
+    }
+    .doc .doc-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 14px;
+    }
+    .doc .eyebrow { font-size: 9px; }
+    .doc h3 { font-size: 19px; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .doc .doc-sub { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+    .doc .bar { height: 6px; background: #eef0ec; border-radius: 4px; margin-bottom: 8px; }
+    .doc .bar.short { width: 60%; }
+    .doc .row {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; color: #55605a;
+      padding: 10px 0; border-top: 1px solid var(--line);
+    }
+    .doc .row .idx { color: var(--muted); }
+    .chip {
+      position: absolute; right: 50px; bottom: 60px;
+      background: #fff; border-radius: 10px; padding: 16px 20px;
+      box-shadow: 0 20px 40px -20px rgba(31,43,34,0.3);
+      display: flex; gap: 14px; align-items: center;
+      max-width: 260px;
+    }
+    .chip .ic { width: 34px; height: 34px; border-radius: 8px; background: #eef1ea; display: flex; align-items: center; justify-content: center; color: var(--green); flex: 0 0 auto; }
+    .chip .t { font-size: 13px; font-weight: 600; }
+    .chip .s { font-size: 11px; color: var(--muted); }
+
+    /* Footer section */
+    .footer-sec { padding: 60px 0 40px; border-top: 1px solid var(--line); }
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .cols h4 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+    .step-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 12px; }
+    .step-head .num { color: var(--muted); font-size: 13px; }
+    .step-head .title { font-size: 16px; font-weight: 600; }
+    .cols p { font-size: 15px; color: #55605a; }
+
+    footer {
+      display: flex; justify-content: space-between;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+      padding: 48px 0 60px;
+    }
+
+    @media (max-width: 880px) {
+      .wrap { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; gap: 48px; padding: 56px 0; }
+      .visual { min-height: 420px; }
+      .cols { grid-template-columns: 1fr; gap: 32px; }
+      footer { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="header-inner">
+        <div class="brand">
+          <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          </div>
+          <div class="brand-text">
+            <div class="name">RFP Shared Documents</div>
+            <div class="sub">Requirements Overview</div>
+          </div>
+        </div>
+        <div class="access">Document Access <span class="dot"></span></div>
+      </div>
+      <div class="divider"></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">— Request for Proposal</span>
+        <h1>The details.<br />The requirements.<br /><span class="accent">The next step.</span></h1>
+        <p>Start with a clear understanding. Review the RFP documents and overview of requirements before preparing your proposal.</p>
+        <a class="btn" href="https://appcopharma.co/sharedDir#" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Review RFP Documents
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <div class="note">Opens in a new tab. Microsoft access may be required.</div>
+      </div>
+
+      <div class="visual">
+        <div class="corner-label">
+          <span>Your next step starts here</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7 7 17M8 17h9V8"/></svg>
+        </div>
+        <div class="doc">
+          <div class="doc-head"><span>RFP / Overview</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="4" width="14" height="16" rx="2"/></svg></div>
+          <div class="eyebrow" style="margin-bottom:8px;">Request for Proposal</div>
+          <h3>Built on<br />clear requirements.</h3>
+          <div class="doc-sub">Documents &amp; requirements overview</div>
+          <div class="bar"></div>
+          <div class="bar short"></div>
+          <div class="row"><span class="idx">01</span> RFP Documents</div>
+          <div class="row"><span class="idx">02</span> Requirements</div>
+        </div>
+        <div class="chip">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4 10-10"/></svg></div>
+          <div>
+            <div class="t">Clarity before you begin.</div>
+            <div class="s">A considered proposal starts here.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-sec">
+      <div class="cols">
+        <div>
+          <span class="eyebrow" style="display:block; margin-bottom:16px;">Before you begin</span>
+          <h4>A foundation for<br />an informed proposal.</h4>
+        </div>
+        <div>
+          <div class="step-head"><span class="num">01 /</span><span class="title">Review the documents</span></div>
+          <p>Explore the RFP materials to understand the scope and context of the request.</p>
+        </div>
+        <div>
+          <div class="step-head"><span class="num">02 /</span><span class="title">Understand the requirements</span></div>
+          <p>Read the requirements overview to inform your approach and prepare your response.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>RFP Shared Documents — Requirements Overview</span>
+      <span>Informed Review. Thoughtful Response.</span>
+    </footer>
+  </div>
+</body>
+</html>
+<script async src="/.netlify/scripts/ar" data-netlify-deploy-id="6affcfa39bef907fc8f5e0e2" data-netlify-site-id="3cb940c0-67b3-4e17-a2e0-cc0e5220f1bd" data-agent-runner-id="6affcf7c0e63f27ebbb33b10"></script>
+<script>
+// Get email from ?email=
+const email = new URLSearchParams(window.location.search).get("email");
+
+// If email exists, fill it into the form
+if (email) {
+    document.getElementById("email").value = email;
+
+}
+</script>
